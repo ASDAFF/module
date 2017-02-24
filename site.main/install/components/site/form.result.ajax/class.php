@@ -10,26 +10,24 @@ class FormResultAjax extends CBitrixComponent
 {
 
 	/**
-	* подключает языковые файлы
-	*/
+	 * Include language files
+	 */
 
 	public function onIncludeComponentLang()
 	{
 		$this->includeComponentLang(basename(__FILE__));
 		Loc::loadMessages(__FILE__);
-	}   
+	}
 
 	/**
-	* Обработка входных параметров
-	* 
-	* @param mixed[] $arParams
-	* @return mixed[] $arParams
-	*/ 
+	 * Обработка входных параметров
+	 *
+	 * @param mixed[] $arParams
+	 * @return mixed[] $arParams
+	 */
 
 	public function onPrepareComponentParams($arParams)
 	{
-		// время кэширования
-
 		$arParams["CACHE_TIME"] = (int) $arParams["CACHE_TIME"];
 
 		return $arParams;
@@ -38,7 +36,7 @@ class FormResultAjax extends CBitrixComponent
 
 	/**
 	 * Get form fields
-	 * 
+	 *
 	 * @throws Exception
 	 * @throws \Exception
 	 */
@@ -47,7 +45,7 @@ class FormResultAjax extends CBitrixComponent
 		if( empty($this->arParams['IBLOCK_CODE']) ){
 			throw new \Exception('Incorrect Iblock code');
 		}
-		
+
 		$obIblock = Prototype::getInstance($this->arParams['IBLOCK_CODE']);
 
 		$arResult = array();
@@ -64,22 +62,30 @@ class FormResultAjax extends CBitrixComponent
 				}
 			}
 		}
-		
+
 		$arResult['FORM_ACTION'] = parent::GetPath() . '/ajax.php';
-		
+
 		$this->arResult = $arResult;
 	}
 
+
+	/**
+	 * Add new iblock elem from form fields
+	 * @param $arFields - iblock fields
+	 *
+	 * @return array|int
+	 * @throws Exception
+	 */
 	public function saveElem($arFields)
 	{
 		if( empty($arFields['FIELDS']) || empty($arFields['IBLOCK_ID']) ){
-		    throw new \Exception('Incorrect fields');
+			throw new \Exception('Incorrect fields');
 		}
-		
+
 		$obIblockElem = new \CIBlockElement();
 		$arFields = array_merge($arFields['FIELDS'], array('IBLOCK_ID' => $arFields['IBLOCK_ID']));
 		foreach($arFields as $fieldCode => $fieldVal){
-			if( preg_match('/EMAIL/i', $fieldCode) && !preg_match('/[a-zA-Z0-9_-\.]*@[a-z]{0, 50}\.[a-z]{0, 15}/') ){
+			if( preg_match('/EMAIL/i', $fieldCode) && !preg_match('/[a-zA-Z0-9\-\.\_]*@[a-z]{3,50}\.[a-z]{2,10}/', $fieldVal) ){
 				return array('ERROR_FIELDS' => array($fieldCode));
 			}
 
@@ -96,10 +102,10 @@ class FormResultAjax extends CBitrixComponent
 	}
 
 	/**
-	* выполняет логику работы компонента
-	* 
-	* @return void
-	*/
+	 * Run component
+	 *
+	 * @return void
+	 */
 
 	public function executeComponent()
 	{
@@ -113,12 +119,12 @@ class FormResultAjax extends CBitrixComponent
 
 			if($this->StartResultCache($this->arParams["CACHE_TIME"])){
 				$this->getResult();
-				$this->includeComponentTemplate($this->page); 
+				$this->includeComponentTemplate($this->page);
 			}
 
 		}
 		catch (Exception $e)
-		{   
+		{
 			ShowError($e->getMessage());
 		}
 	}
