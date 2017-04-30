@@ -1,4 +1,4 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+<? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <form name="iblock_add" class="form " action="<?=POST_FORM_ACTION_URI?>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="submit-success" value="<?=$arResult["OK"]?>"/>
     <?if($_GET["formresult"] == "Y"){

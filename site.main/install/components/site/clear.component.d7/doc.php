@@ -1,8 +1,6 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $title = "clear.component.d7 (Пустой компонент - заготовка)";
-$APPLICATION->SetTitle($title);
-?>
+$APPLICATION->SetTitle($title); ?>
 
     <style>
         table {
@@ -78,5 +76,4 @@ $APPLICATION->SetTitle($title);
         </tr>
     </table>
     <hr>
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

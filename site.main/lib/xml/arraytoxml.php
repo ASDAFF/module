@@ -150,4 +150,3 @@ class ArrayToXml {
 		return preg_match($pattern, $tag, $matches) && $matches[0] == $tag;
 	}
 }
-?>

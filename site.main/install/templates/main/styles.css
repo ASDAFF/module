@@ -1,14 +1,4 @@
 /**
- * @category
- * @link		http://.ru
- * @revision	$Revision$
- * @date		$Date$
- */
-
-
-
-
-/**
 * XXX: Шрифты 
 */
 @font-face {
@@ -43,36 +33,4 @@ a.fake {
 	text-decoration: none;
 }
 a.fake:hover {
-}
-
-
-
-
-/* Плоские списки (с обнулёнными стилями) */
-ul.flat,
-ol.flat {
-	list-style-image: none;
-	list-style-position: outside;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-ul.flat li,
-ol.flat li {
-	margin: 0;
-	padding: 0;
-}
-
-
-
-
-/* Картинки в тексте */
-.img-embed {
-	float: left;
-	margin: 0 1em .5em 0;
-}
-.img-embed-right {
-	float: right;
-	margin-left: .5em;
-	margin-right: 0;
 }

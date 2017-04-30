@@ -1340,64 +1340,6 @@ site.utils = {
 		return $(link).attr('href').replace(/^.*#/, '#');
 	},
 	
-	/**
-	 * XXX: Предзагрузчик изображений с поддержкой jQuery deferred
-	 * Пример:
-	 * $.when(
-	 *     site.utils.preloadImage(src1),
-	 *     site.utils.preloadImage([src2, src3])
-	 * ).done(function()
-	 * {
-	 *     //Images are preloaded
-	 * });
-	 * 
-	 * @param string|array|jQuery sources Адрес(а) изображений
-	 * @return object
-	 */
-	preloadImage: function(sources)
-	{
-		if (sources instanceof jQuery) {
-			var urls = [];
-			sources.each(function() {
-				if ($(this).is('img')) {
-					urls.push($(this).attr('src'));
-				} else if ($(this).is('a')) {
-					urls.push($(this).attr('href'));
-				}
-			});
-			return this.preloadImage(urls);
-		}
-		
-		if (!(sources instanceof Array)) {
-			sources = [sources];
-		}
-		
-		var defer = $.Deferred();
-		var images = {};
-		var totalCount = 0;
-		for (var i = 0; i < sources.length; i++) {
-			var url = sources[i];
-			var id = 'id' + url.replace(/[^A-z0-9]/g, '');
-			if (images[id] === undefined) {
-				images[id] = {
-					image: new Image(),
-					url: url
-				};
-				totalCount++;
-			}
-		}
-		var loadedCount = 0;
-		for (var id in images) {
-			images[id].image.onload = function() {
-				if (++loadedCount >= totalCount) {
-					defer.resolve();
-				}
-			};
-			images[id].image.src = images[id].url;
-		}
-		
-		return defer.promise();
-	},
 	
 	/**
 	 * XXX: Склоняет существительное с числительным

@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * @category	
  * @link		http://.ru

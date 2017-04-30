@@ -184,44 +184,6 @@ class Util
     }
 
     /**
-     * Возвращает содержимое файла через cURL
-     *
-     * @param string $url URL файла
-     * @param integer $timeout Таймаут в секундах
-     * @return string
-     */
-    function getURL($url, $timeout = 10)
-    {
-        if (!function_exists('curl_init')) {
-            throw new Exception('cURL module is not installed.');
-        }
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-        $data = curl_exec($ch);
-
-        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $errCode = curl_errno($ch);
-        $errString = '';
-        if ($errCode) {
-            $errString = curl_error($ch);
-        }
-
-        curl_close($ch);
-
-        if ($errCode) {
-            throw new Exception('cURL error: ' . $errString, $errCode);
-        } elseif ($httpStatus >= 400) {
-            throw new Exception('Server return error status: ' . $httpStatus);
-        }
-
-        return $data;
-    }
-
-    /**
      * Конвертирует кодировку
      *
      * @param mixed $data Данные для кодирования
@@ -248,50 +210,6 @@ class Util
         return $data;
     }
 
-    /**
-     * Возвращает массив с отфильтрованными ключами
-     *
-     * @param array $source Массив, который надо отфильтровать
-     * @param array $keys Ключи, которые надо оставить
-     * @param integer $level На каком уровне вложенности работать
-     * @return array
-     */
-    public static function arrayFilterKeys($source, $keys, $level = 0)
-    {
-        $result = array();
-
-        if ($level > 0) {
-            foreach ($source as $key => &$val) {
-                $result[$key] = self::arrayFilterKeys($val, $keys, $level - 1);
-            }
-        } else {
-            foreach ($source as $key => $val) {
-                if (in_array($key, $keys)) {
-                    $result[$key] = $val;
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Добавляет префикс к каждому ключу массива
-     *
-     * @param array $source Массив, который надо отфильтровать
-     * @param string $prefix Префикс
-     * @return array
-     */
-    public static function arrayAddPrefix($source, $prefix)
-    {
-        $result = array();
-
-        foreach ($source as $key => $val) {
-            $result[$prefix . $key] = $val;
-        }
-
-        return $result;
-    }
 
     /**
      * Выводит дамп данных через print_r()
@@ -301,10 +219,10 @@ class Util
      */
     public static function debug($data)
     {
-        ?>
-        <pre><?= htmlspecialchars(print_r($data, true)); ?></pre><?
+        ?><pre><?= htmlspecialchars(print_r($data, true)); ?></pre><?
     }
 
+   
     /**
      * Выводит дамп данных через var_dump()
      *
@@ -317,51 +235,7 @@ class Util
         <pre><? var_dump($data); ?></pre><?
     }
 
-    /**
-     * Возвращает список файлов в каталоге
-     *
-     * @param string $dir Каталог
-     * @param string $mask Маска выбора, регулярное выражение
-     * @param boolean $recursive Выбрать подкаталоги
-     * @return array
-     */
-    public static function readDir($dir, $mask = '', $recursive = false)
-    {
-        if (substr($dir, -1) != '/') {
-            $dir .= '/';
-        }
-
-        $handle = dir($dir);
-        if (!$handle) {
-            throw new Exception(sprintf('Can\'t read direcrory "%s"', $dir));
-        }
-
-        $result = array();
-        while (false !== ($entry = $handle->read())) {
-            if ($entry != '.' && $entry != '..') {
-                if (is_dir($handle->path . $entry)) {
-                    if ($recursive) {
-                        $result = array_merge(
-                            $result,
-                            self::readDir($handle->path . $entry, $mask, $recursive)
-                        );
-                    }
-                } else {
-                    if (!$mask || preg_match($mask, $entry)) {
-                        $result[] = array(
-                            'full' => $handle->path . $entry,
-                            'short' => $entry,
-                        );
-                    }
-                }
-            }
-        }
-
-        $handle->close();
-
-        return $result;
-    }
-
+   
     /**
      * Пишет данные в лог
      *
@@ -414,78 +288,6 @@ class Util
         return $string;
     }
 
-    /**
-     * Анализиурует ссылку на внешний сайт
-     * Формирует правильный title (без протокольного префикса) и URL (с протокольным префиксом)
-     *
-     * @param string $url Адрес сайта
-     * @return array
-     */
-    public static function analizeWebsiteAddress($url)
-    {
-        $result = array(
-            'url' => '',
-            'label' => ''
-        );
-        if ($url) {
-            $urlParts = explode('://', $url);
-            if (count($urlParts) == 1) {
-                $result['url'] = 'http://' . $urlParts[0];
-                $result['label'] = $urlParts[0];
-            } else {
-                $result['url'] = $url;
-                $result['label'] = $urlParts[1];
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Возвращает html-текст  скрытых input'ов, описывающих многомерный массив данных
-     *
-     * @param array $arFields Массив данных
-     * @param array $arExclude Массив ключей исключений
-     * @param array $arNames служебный стек-массив для рекурсивного построения вложенных массивов
-     * @return string
-     */
-    public static function getHiddenInputsByArray($arFields, $arExclude, $arNames)
-    {
-        if (!is_array($arFields) || !$arFields) {
-            return '';
-        }
-
-        $res = '';
-        foreach ($arFields as $k => $v) {
-            if (!is_array($v)) {
-                if ($arExclude && is_array($arExclude) && in_array($k, $arExclude)) {
-                    continue;
-                }
-                if (!$arNames) {
-                    $res .= '<input type="hidden" name="' . htmlspecialchars($k) . '" value="' . htmlspecialchars($v) . '" />';
-                } elseif (is_array($arNames)) {
-                    $i = -1;
-                    $name = '';
-                    foreach ($arNames as $n) {
-                        $i++;
-                        if (!$i) {
-                            $name = htmlspecialchars($n);
-                        } else {
-                            $name .= '[' . htmlspecialchars($n) . ']';
-                        }
-                    }
-                    $name .= '[' . htmlspecialchars($k) . ']';
-                    $res .= '<input type="hidden" name="' . $name . '" value="' . htmlspecialchars($v) . '"/>';
-                }
-            } else {
-                $t = $arNames;
-                $t[] = $k;
-                $res .= self::getHiddenInputsByArray($v, array(), $t);
-            }
-        }
-
-        return $res;
-    }
 
     /**
      * Преобразует результат работы компонента bitrix:menu в многоуровневое дерево
@@ -595,27 +397,27 @@ class Util
         die();
     }
 
+
     /**
-     * Создает папки в момент копирования файла, если они не существуют
+     * Получает путь к фото-заглушке  с ресайзом.
      *
-     * @param string $fileFrom - абсолютный путь откуда копируем
-     * @param string $fileTo - абсолютный путь куда копируем
+     * @return string
      */
-    public function copyFile($fileFrom, $fileTo)
+    public static function getNoPhoto($sizes = array('width' => 360, 'height' => 290), $type = BX_RESIZE_IMAGE_PROPORTIONAL)
     {
-        $dirAbsPath = '';
-        $arPath = explode('/', $fileTo);
-        foreach ($arPath as $key => $dirName) {
-            if ($key >= count($arPath) - 1) {
-                break;
-            }
-            if (strlen($dirName) > 0) {
-                $dirAbsPath .= '/' . $dirName;
-                if (!file_exists($dirAbsPath)) {
-                    mkdir($dirAbsPath, 0775);
-                }
-            }
+
+        if (!defined('SITE_TEMPLATE_PATH') || !file_exists($_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/images/nophoto.png")) {
+            return;
         }
-        copy($fileFrom, $fileTo);
+
+        $name = "nophoto-" . $sizes['width'] . "-" . $sizes['height'] . ".png";
+        $tmp = \CFile::ResizeImageFile(
+            $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/images/nophoto.png",
+            $a = $_SERVER["DOCUMENT_ROOT"] . "/upload/nophoto/" . $name,
+            $sizes,
+            $type
+        );
+
+        return '/upload/nophoto/' . $name;
     }
 }

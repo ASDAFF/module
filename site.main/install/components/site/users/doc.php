@@ -1,8 +1,6 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $title = "users (Комплексный компонент пользователей)";
-$APPLICATION->SetTitle($title);
-?>
+$APPLICATION->SetTitle($title); ?>
     <style>
         table {
             font-size: 14px;
@@ -292,5 +290,4 @@ $APPLICATION->SetTitle($title);
             <td>Время кеширования, указанное в секундах.</td>
         </tr>
     </table>
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

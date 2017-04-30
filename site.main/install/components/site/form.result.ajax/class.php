@@ -12,7 +12,6 @@ class FormResultAjax extends CBitrixComponent
 	/**
 	 * Include language files
 	 */
-
 	public function onIncludeComponentLang()
 	{
 		$this->includeComponentLang(basename(__FILE__));
@@ -20,12 +19,11 @@ class FormResultAjax extends CBitrixComponent
 	}
 
 	/**
-	 * Обработка входных параметров
+	 * Processing Input Parameters
 	 *
 	 * @param mixed[] $arParams
 	 * @return mixed[] $arParams
 	 */
-
 	public function onPrepareComponentParams($arParams)
 	{
 		$arParams["CACHE_TIME"] = (int) $arParams["CACHE_TIME"];

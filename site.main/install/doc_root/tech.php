@@ -7,14 +7,6 @@ $APPLICATION->SetTitle("Техническая");
 
 <h2>Заголовок второго уровня (H2) <span class="label label-default">New</span></h2>
 
-<!-- Дополнительные типы label's у заголовков
-	<span class="label label-default">Default</span> // серый
-	<span class="label label-primary">Primary</span> //синий
-	<span class="label label-success">Success</span> // зеленый
-	<span class="label label-info">Info</span> // светло-синий
-	<span class="label label-warning">Warning</span> // оранжевый
-	<span class="label label-danger">Danger</span> // красный
--->
 
 <p>По информации <a href="#">Financial Times</a>, основное решение по <a class="fake" href="#">греческому вопросу</a> будет приниматься на встрече рабочей группы министров финансов еврозоны, проведение которой назначено на вторник. Один из собеседников издания в этой связи отметил, что европолитики подготовили "список из нескольких пунктов" - требований, с которыми власти Греции должны согласиться для того, чтобы Еврогруппа в среду вынесла окончательное решение по второму пакету финансовой помощи обремененной долгами стране.</p>
 

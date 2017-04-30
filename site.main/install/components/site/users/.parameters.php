@@ -1,6 +1,4 @@
-<?
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
-
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 $arSorts = array("ASC" => GetMessage("USERS_LIST_DESC_ASC"), "DESC" => GetMessage("USERS_LIST_DESC_DESC"));
 $arSortFields = array(
@@ -119,4 +117,3 @@ $arComponentParameters = array(
         )
     )
 );
-?>

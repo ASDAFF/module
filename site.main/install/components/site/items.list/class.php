@@ -1,12 +1,9 @@
-<?
-
-use Bitrix\Iblock\IblockTable;
+<? use Bitrix\Iblock\IblockTable;
 use Bitrix\Iblock\InheritedProperty\ElementValues;
 use Bitrix\Iblock\InheritedProperty\SectionValues;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Application;
-
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
@@ -488,7 +485,4 @@ class ItemsList extends CBitrixComponent
             return;
         }
     }
-
 }
-
-?>

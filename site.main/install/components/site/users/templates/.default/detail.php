@@ -1,5 +1,7 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-$this->setFrameMode(true);
+<? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+$this->setFrameMode(true);?>
+
+<? 
 // пользователь
 $APPLICATION->IncludeComponent(
     "site:users.detail",
@@ -14,4 +16,3 @@ $APPLICATION->IncludeComponent(
     ),
     $component
 );
-?>

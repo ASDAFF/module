@@ -233,45 +233,7 @@ class Import
         );
         return $importObject;
     }
-
-    /**
-     * Получение массива новостей для импорта (тестовый пример)
-     *
-     * @param void
-     * @return array
-     */
-    private static function getProducts()
-    {
-        // здесть вместо простого присвоения нужно написать получение данных.
-        $importObject = array(
-            array(
-                "name" => "Новость 1",
-                "code" => "New1",
-                "picture" => "/upload/images/1.jpg"
-            ),
-            array(
-                "name" => "Новость 2",
-                "code" => "New2",
-                "picture" => "/upload/images/2.jpg"
-            ),
-            array(
-                "name" => "Новость 3",
-                "code" => "New1",
-                "picture" => "/upload/images/3.jpg"
-            ),
-            array(
-                "name" => "Новость 4",
-                "code" => "New1",
-                "picture" => "/upload/images/4.jpg"
-            ),
-            array(
-                "name" => "Новость 5",
-                "code" => "New5",
-                "picture" => "/upload/images/5.jpg"
-            )
-        );
-        return $importObject;
-    }
+    
 
     /**
      * Импорт товара (тестовый пример)

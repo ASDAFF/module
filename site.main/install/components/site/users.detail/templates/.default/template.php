@@ -1,14 +1,14 @@
-<?
-if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+<? if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 }
 $this->setFrameMode(true);
+
 if(empty($arResult["USER"])) {
     ShowError(GetMessage("USER_NOT_FOUNDED"));
     return;
 }
-?>
-<h2><?= $arResult["USER"]["TITLE"] ?></h2>
+
+?><h2><?= $arResult["USER"]["TITLE"] ?></h2>
 <div class="row">
     <div class="col-xs-3">
         <? if ($arResult["USER"]["PERSONAL_PHOTO"]) {

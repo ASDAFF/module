@@ -1,5 +1,4 @@
-<?php
-/**
+<? /**
  *  module
  * 
  * @category	

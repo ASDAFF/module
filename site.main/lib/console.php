@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  *  module
  * 
@@ -134,8 +134,7 @@ class Console
 			return;
 		}
 		
-		?>
-		<script role="console">
+		?><script role="console">
 			if (typeof console != 'undefined') {
 				<?foreach ($items as $item) {
 					switch ($item[1]) {
@@ -153,7 +152,6 @@ class Console
 					}
 				}?>
 			}
-		</script>
-		<?
+		</script><?
 	}
 }

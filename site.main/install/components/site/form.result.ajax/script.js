@@ -25,7 +25,6 @@ $(document).on('click', '.js-form__send-btn', function(event) {
             data:  $form.serializeArray(),
 
             success: function(response) {
-                console.log(response);
                 if( response.hasOwnProperty('SUCCESS')
                     && response.SUCCESS
                     && response.hasOwnProperty('SUCCESS_TEXT')
@@ -45,6 +44,5 @@ $(document).on('click', '.js-form__send-btn', function(event) {
                 return false;
             }
         });
-
     }
 });

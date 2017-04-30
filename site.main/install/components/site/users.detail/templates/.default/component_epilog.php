@@ -1,6 +1,5 @@
-<?php
+<? global $APPLICATION;
 
-global $APPLICATION;
 // свойства страницы
 $userName = $arResult["USER"]["TITLE"];
 if($arParams["SET_TITLE"] == "Y") {

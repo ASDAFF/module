@@ -1,5 +1,4 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $title = "users.detail (Пользователь детально)";
 $APPLICATION->SetTitle($title);
 ?>
@@ -153,5 +152,4 @@ $APPLICATION->SetTitle($title);
             <td>Время кеширования, указанное в секундах.</td>
         </tr>
     </table>
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

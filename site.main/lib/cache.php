@@ -66,10 +66,11 @@ class Cache
 	 */
 	public function start()
 	{
-		if ($_REQUEST['clear_cache'] == 'Y' && \CUser::IsAdmin()) {
+		$obUser = new \CUser();
+		if ($_REQUEST['clear_cache'] == 'Y' && $obUser->IsAdmin()) {
 			$this->core->clean($this->id, $this->dir);
 		}
-		
+
 		return $this->core->startDataCache($this->time, $this->id, $this->dir);
 	}
 	

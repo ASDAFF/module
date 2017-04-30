@@ -1,8 +1,6 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $title = "form.result.ajax (Компонент отправки заявки на почту и сохранения ее в иб)";
-$APPLICATION->SetTitle($title);
-?>
+$APPLICATION->SetTitle($title); ?>
 
     <style>
         table {
@@ -83,5 +81,4 @@ $APPLICATION->SetTitle($title);
         </tr>
     </table>
     <hr>
-<?
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php");
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

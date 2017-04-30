@@ -43,16 +43,6 @@ class Form extends Prototype
 	}
 	
 	/**
-	 * Выводит форму по параметру в запросе
-	 *
-	 * @return string
-	 */
-	/*public function addAction()
-	{
-		return $this->getForm($this->getParam('sid'));
-	}*/
-	
-	/**
 	 * Выводит компонент добавления результата формы
 	 *
 	 * @param integer $sid Символьный код формы
@@ -97,40 +87,6 @@ class Form extends Prototype
 					'RESULT_ID' => 'RESULT_ID',
 				)
 			)
-		);
-	}
-	
-	/**
-	 * Выводит результат заполнения формы
-	 *
-	 * @return array
-	 */
-	public function resultAction()
-	{
-		$this->view = new Mvc\View\Php('form/result.php');
-		
-		return array(
-			'result' => $this->getParam('formresult'),
-			'resultID' => (int) $this->getParam('RESULT_ID'),
-			'formID' => (int) $this->getParam('WEB_FORM_ID'),
-		);
-	}
-
-
-	/**
-	 * Выводит результаты действий в форме подписки
-	 *
-	 * @return string
-	 */
-	protected function subscribeAction()
-	{
-		$this->view = new Mvc\View\Html();
-		$this->returnAsIs = true;
-
-		return $this->getComponent(
-			"site:subscribtion",
-			"",
-			array()
 		);
 	}
 }

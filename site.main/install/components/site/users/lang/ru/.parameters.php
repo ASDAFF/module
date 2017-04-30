@@ -1,5 +1,4 @@
-<?
-$MESS["USERS_LIST_PAGE_ELEMENT_COUNT"] = "Количество элементов на странице";
+<? $MESS["USERS_LIST_PAGE_ELEMENT_COUNT"] = "Количество элементов на странице";
 $MESS["USERS_LIST_LINE_ELEMENT_COUNT"] = "Количество элементов на строке";
 $MESS["USERS_LIST_SHOW_LINK_DETAIL"] = "Показывать ссылку на детальную страницу";
 $MESS["USERS_LIST_FIELDS"] = "Выбираемые поля на странице списка пользователей";
@@ -22,4 +21,3 @@ $MESS["USERS_LIST_SORT_ORDER"] = "Направление сортировки";
 $MESS["USERS_LIST_SHOW_PAGER"] = "Выводить постраничную навигацию";
 $MESS["USERS_LIST_AJAX_ID"] = "ID компонента (для работы постраничной навигации в режиме AJAX)";
 $MESS["USERS_LIST_USERS_COUNT"] = "Количество пользователей";
-?>

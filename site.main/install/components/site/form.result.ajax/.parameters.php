@@ -15,7 +15,7 @@ if( empty($iblockId) ){
 	throw new \Exception('Invalid iblock id');
 }
 
-// merge standard iblock fields whith this props 
+// merge standard iblock fields with this props 
 $arFields = \CIBlockParameters::GetFieldCode('', "DATA_SOURCE");
 $obProps = PropertyTable::getList(array('filter' => array('IBLOCK_ID' => $iblockId)));
 while($arProp = $obProps->fetch()) {

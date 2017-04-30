@@ -1,5 +1,4 @@
-<?
-$MESS["IBLOCK_TYPE"] = "Тип инфоблока";
+<? $MESS["IBLOCK_TYPE"] = "Тип инфоблока";
 $MESS["IBLOCK_IBLOCK"] = "Инфоблок";
 $MESS["FIELDS"] = "Выбираемые поля";
 $MESS["REQUARED_FIELDS"] = "Обязательные поля";
@@ -20,5 +19,3 @@ $MESS["IBLOCK_ADD_PREVIEW_TEXT"] = "* текст анонса *";
 $MESS["IBLOCK_ADD_PREVIEW_PICTURE"] = "* картинка анонса *";
 $MESS["IBLOCK_ADD_DETAIL_TEXT"] = "* подробный текст *";
 $MESS["IBLOCK_ADD_DETAIL_PICTURE"] = "* подробная картинка *";
-
-?>

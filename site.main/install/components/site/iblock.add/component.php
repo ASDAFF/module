@@ -1,5 +1,4 @@
-<?
-if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
+<? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 use \Site\Main as Main;
 if(!CModule::IncludeModule("iblock"))
 {
@@ -187,7 +186,3 @@ if($_POST["submit-form"]){
 
 } 
 $this->IncludeComponentTemplate();
-
-
-
-?>

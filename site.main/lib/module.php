@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  *  module
  * 
@@ -10,10 +10,8 @@
 
 namespace Site\Main;
 
-/**
- * Сайт работает в продакшн-режиме
- */
-const PRODUCTION_MODE = false;
+use Bitrix\Main\Context;
+
 
 /**
  * Основной класс модуля
@@ -33,17 +31,6 @@ class Module
 		self::setupEventHandlers();
 	}
 	
-	/**
-	 * Подключает замену для функций, которые отсутствуют в нативной реализации
-	 *
-	 * @return void
-	 */
-	protected static function checkUnavailableFunctions()
-	{
-		if (!function_exists('json_encode')) {
-			include_once \Site\Main\BASE_DIR . '/functions/json_encode.php';
-		}
-	}
 	
 	/**
 	 * Определяет вычисляемые константы модуля
@@ -54,8 +41,10 @@ class Module
 	{
 		define(__NAMESPACE__ . '\IS_INDEX', \Bitrix\Main\Application::getInstance()->getContext()->getRequest()->getRequestedPage() == '/index.php');
 		define(__NAMESPACE__ . '\IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
-		
+		define(DOC_ROOT, Context::getCurrent()->getServer()->getDocumentRoot());
+
 		Iblock\Prototype::defineConstants();
+		File::defineConstants();
 		//User::defineConstants();
 		//Site::defineConstants();
 		
@@ -70,22 +59,6 @@ class Module
 		);
 	}
 	
-	/**
-	 * Проверяет конфигурацию в случае 2-уровневой архитектуры (nginx -> apache)
-	 *
-	 * @return void
-	 */
-	protected static function checkTwoLevelsArchitecture()
-	{
-		if ($_SERVER['HTTP_X_FORWARDED_FOR'] && $_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
-			if ($p = strrpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',')) {
-				$_SERVER['REMOTE_ADDR'] = $REMOTE_ADDR = trim(substr($_SERVER['HTTP_X_FORWARDED_FOR'], $p + 1));
-				$_SERVER['HTTP_X_FORWARDED_FOR'] = substr($_SERVER['HTTP_X_FORWARDED_FOR'], 0, $p);
-			} else {
-				$_SERVER['REMOTE_ADDR'] = $REMOTE_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-			}
-		}
-	}
 	
 	/**
 	 * Добавляет обработчики событий
@@ -96,13 +69,6 @@ class Module
 	{
 		$eventManager = \Bitrix\Main\EventManager::getInstance();
 		
-		/* Forms event handlers */
-		//$eventManager->addEventHandler('form', 'onAfterResultAdd', array('\Site\Main\Form', 'onAfterResultAdd'));
-		
-		/* Sale event handlers */
-		//$eventManager->addEventHandler('sale', 'OnBeforeBasketAdd', array('\Site\Main\Sale\Basket', 'onBeforeBasketAdd'));
-		//$eventManager->addEventHandler('sale', 'OnBasketAdd', array('\Site\Main\Sale\Basket', 'onBasketAdd'));
-		//$eventManager->addEventHandler('sale', 'OnOrderUpdate', array('\Site\Main\Sale\Order', 'onOrderUpdate'));
 		$eventManager->addEventHandler('main', 'OnBeforeEventAdd', array('\Site\Main\Form', 'OnBeforeEventAddHandler'));
 		$eventManager->AddEventHandler('search', 'OnSearchGetFileContent', array('\Site\Main\Search', 'onBeforeIndex'));
 	}

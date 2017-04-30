@@ -1,5 +1,3 @@
-<?
-$sSectionName = "Карта сайта";
+<? $sSectionName = "Карта сайта";
 $arDirProperties = array(
 );
-?>

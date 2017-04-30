@@ -1,9 +1,8 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
-$this->setFrameMode(true);
-if ($arParams["LIST_TITLE"]) {
-    ?>
-    <h2><?= $arParams["LIST_TITLE"] ?></h2>
-    <?
+$this->setFrameMode(true); ?>
+
+<? if ($arParams["LIST_TITLE"]) {
+    ?><h2><?= $arParams["LIST_TITLE"] ?></h2><?
 }
 
 // список пользователей

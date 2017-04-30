@@ -1,5 +1,4 @@
-<?
-$MESS["IBLOCK_CACHE_FILTER"] = "Кешировать при установленном фильтре";
+<? $MESS["IBLOCK_CACHE_FILTER"] = "Кешировать при установленном фильтре";
 $MESS["T_IBLOCK_DESC_ASC"] = "По возрастанию";
 $MESS["T_IBLOCK_DESC_DESC"] = "По убыванию";
 $MESS["T_IBLOCK_DESC_FID"] = "ID";
@@ -33,4 +32,3 @@ $MESS["CP_BNL_SET_BROWSER_TITLE"] = "Устанавливать заголово
 $MESS["CP_BNL_SET_META_KEYWORDS"] = "Устанавливать ключевые слова страницы";
 $MESS["CP_BNL_SET_META_DESCRIPTION"] = "Устанавливать описание страницы";
 $MESS["CP_BNL_SET_LAST_MODIFIED"] = "Устанавливать в заголовках ответа время модификации страницы";
-?>

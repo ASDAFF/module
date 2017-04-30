@@ -67,10 +67,6 @@ site.app.blocks.common = function()
 	 */
 	this.initDOM = function(domElement)
 	{
-		if ($.fn.placeholder) {
-			domElement.find('input[placeholder], textarea[placeholder]').placeholder();
-		}
-		
 		if ($.fn.fancybox) {
 			domElement.find('.fancybox').fancybox();
 		}
@@ -84,31 +80,6 @@ site.app.blocks.common = function()
 			Selectivizr.init();
 		}
 		
-		// Показываем/скрываем пароль в полях форм
-		domElement.find('.form .glyphicon-eye-open, .form .glyphicon-eye-close').click(function() {
-			var icon = $(this);
-			var field = icon.closest('.form-group').find('input');
-			
-			if (!icon.data('show-title')) {
-				icon.data('show-title', icon.attr('title') || '');
-			}
-			
-			if (icon.hasClass('glyphicon-eye-open')){
-				field.attr('type', 'text');
-				icon
-					.removeClass('glyphicon-eye-open')
-					.addClass('glyphicon-eye-close')
-					.attr('title', icon.data('hide-title'));
-			} else {
-				field.attr('type', 'password');
-				icon
-					.removeClass('glyphicon-eye-close')
-					.addClass('glyphicon-eye-open')
-					.attr('title', icon.data('show-title'));
-			}
-			
-			return false;
-		});
 		/**
 		 * AJAX веб-форма
 		 * Обязательно нужно указать action, id и enctype="multipart/formadata"
@@ -169,13 +140,13 @@ site.app.blocks.common = function()
      * @param reloadContainerSelector селектор контейнера
      * @param setIdContainerInHash добавлять ли в url браузера id контейнера
      */
-
     common.reloadContainer = function (url, reloadContainerSelector, setIdContainerInHash) {
         var $reloadContainer = $(reloadContainerSelector);
         var loading = new site.ui.loading($reloadContainer);
         $.ajax({
             url: url,
             success: function (response) {
+				response = '<div>' + response + '</div>';
                 var newContainerHtml = $(response).find(reloadContainerSelector).html();
                 $reloadContainer.html(newContainerHtml);
                 site.app.blocks.common.initDOM($reloadContainer);
@@ -198,45 +169,6 @@ site.app.blocks.common = function()
 	site.ui.onInit(this.initDOM, this);
 };
 
-
-/**
- * XXX: Блок шаблона "Выбор города"
- */
-site.app.blocks.citySelector = function()
-{
-	// выбираем город
-	$('#cities-modal .item a').click(function(e){
-
-		// получаем соответсвующий элемент инфоблока и записываем в куки
-		var city_id = parseInt($(this).data('id'));
-		$.get('/local/templates/main/ajax/set-city.php', { 'ID': city_id}, function(data){
-			location.href = '/';
-		});
-		
-		e.preventDefault();
-
-		var cityNow = $('.current-city'),
-			cityNew = $(this).text();
-
-		$('#cities-modal .item a').removeClass('active');
-		$(this).addClass('active');
-		cityNow.text(cityNew);
-	});			
-	
-};
-
-/**
- * Проверяет наличие блока "Выбор города"
- *
- * @return boolean
- */
-site.app.blocks.citySelector.exists = function()
-{
-	return $('.city-selector').length > 0;
-};
-
-
-
 /**
  * XXX: Блок шаблона "Шапка"
  */
@@ -253,49 +185,6 @@ site.app.blocks.header = function()
 site.app.blocks.header.exists = function()
 {
 	return $('#header').length > 0;
-};
-
-
-
-
-/**
- * XXX: Контроллер "Наверх", появляющийся при прокрутке
- */
-site.app.blocks.goTop = function()
-{
-	/**
-	 * Базовый DOM элемент
-	 *
-	 * @var jQuery
-	 */
-	var block = $('#go-top');
-	
-	/**
-	 * Обработчик прокрутки окна браузера
-	 *
-	 * @return void
-	 */
-	var onScroll = function()
-	{
-		if ($(document).scrollTop() > $(window).height()) {
-			block.addClass('enabled');
-		} else {
-			block.removeClass('enabled');
-		}
-	};
-	
-	//Обработчик клика по ссылке
-	block.find('a').click(function() {
-		$('html, body').animate({
-			scrollTop: 0
-		}, 'fast');
-		
-		return false;
-	});
-	
-	/* Инициализация */
-	$(document).scroll(onScroll);
-	onScroll();
 };
 
 
@@ -468,8 +357,6 @@ site.app.blocks.popupForm = function()
 	//Обработчик инициализиации UI
 	site.ui.onInit(this.initDOM, this);
 };
-
-
 
 
 /* Инициализация после готовности DOM */
