@@ -25,8 +25,6 @@ class Module
 	 */
 	public static function onPageStart()
 	{
-		self::checkUnavailableFunctions();
-		self::checkTwoLevelsArchitecture();
 		self::defineConstants();
 		self::setupEventHandlers();
 	}

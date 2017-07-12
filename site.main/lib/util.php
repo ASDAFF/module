@@ -403,21 +403,48 @@ class Util
      *
      * @return string
      */
-    public static function getNoPhoto($sizes = array('width' => 360, 'height' => 290), $type = BX_RESIZE_IMAGE_PROPORTIONAL)
+    public static function getNoPhoto($arSizes = array('width' => 360, 'height' => 290), $type = BX_RESIZE_IMAGE_PROPORTIONAL)
     {
 
-        if (!defined('SITE_TEMPLATE_PATH') || !file_exists($_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/images/nophoto.png")) {
+        if( !defined('SITE_TEMPLATE_PATH') || !file_exists($_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/images/nophoto.png") ) {
             return;
         }
 
-        $name = "nophoto-" . $sizes['width'] . "-" . $sizes['height'] . ".png";
-        $tmp = \CFile::ResizeImageFile(
-            $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/images/nophoto.png",
-            $a = $_SERVER["DOCUMENT_ROOT"] . "/upload/nophoto/" . $name,
-            $sizes,
-            $type
-        );
+        $name = "nophoto-" . $arSizes['width'] . "-" . $arSizes['height'] . ".png";
+        $tmp = \CFile::ResizeImageFile($_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/images/nophoto.png", $a = $_SERVER["DOCUMENT_ROOT"] . "/upload/nophoto/" . $name, $arSizes, $type);
 
         return '/upload/nophoto/' . $name;
+    }
+    
+
+    /**
+     * Форматирование номеров
+     *
+     * @param $sPhone_str - Номер телефона
+     * @param bool $useTelPrefix Использовать форматироние для сссылки к номеру
+     * @return string
+     */
+    public static function formatPhoneNumber($sPhoneStr, $useTelPrefix = false)
+    {
+        $sPhone = preg_replace('~[^0-9]+~', '', $sPhoneStr);
+
+        if (strlen($sPhone) != 11) return $sPhoneStr;
+
+
+        $sCountry = substr($sPhone, 0, 1);
+        $sArea = substr($sPhone, 1, 3);
+        $sPrefix = substr($sPhone, 4, 3);
+        $sNumber = substr($sPhone, 5, 4);
+        if ($sCountry == '8') {
+            $sCountry = '7';
+        }
+
+        if ($useTelPrefix) {
+            return ("tel:+" . $sPhone);
+        } else {
+
+            $sPhone = "+" . $sCountry . "(" . $sArea . ")" . $sPrefix . "-" . $sNumber;
+            return ($sPhone);
+        }
     }
 }
